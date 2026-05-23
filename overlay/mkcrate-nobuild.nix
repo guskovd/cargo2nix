@@ -13,7 +13,6 @@
   compileMode ? "build",
   profile,
   meta ? { },
-  cargoArgs ? [ ],
   cargoUnstableFlags ? [ ],
   rustcLinkFlags ? [ ],
   rustcBuildFlags ? [ ],

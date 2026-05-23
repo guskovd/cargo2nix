@@ -16,7 +16,6 @@ args@{
   target ? null,
   codegenOpts ? null,
   profileOpts ? null,
-  cargoArgs ? null,
   cargoUnstableFlags ? null,
   rustcLinkFlags ? null,
   rustcBuildFlags ? null,
@@ -50,7 +49,7 @@ else let
   overridableMkRustCrate = f:
     let
       drvs = genDrvsByProfile profilesByName ({ profile, profileName }: mkRustCrate ({
-        inherit release profile hostPlatformCpu hostPlatformFeatures target profileOpts codegenOpts cargoArgs cargoUnstableFlags rustcLinkFlags rustcBuildFlags; 
+        inherit release profile hostPlatformCpu hostPlatformFeatures target profileOpts codegenOpts cargoUnstableFlags rustcLinkFlags rustcBuildFlags; 
         cargoConfig = cargoConfig';
       } // (f profileName)));
     in { compileMode ? null, profileName ? decideProfile compileMode release }:

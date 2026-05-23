@@ -22,7 +22,7 @@
   profileOpts ? null,
   codegenOpts ? null,
   meta ? { },
-  cargoArgs ? "",
+  cargoBuildFlags ? [ ],
   cargoUnstableFlags ? [ ],
   rustcLinkFlags ? [ ],
   rustcBuildFlags ? [ ],
@@ -106,7 +106,7 @@ let
         else "--features ${concatStringsSep "," featuresWithoutDefault}";
     in
       if compileMode != "doctest" then ''
-        ${rustToolchain}/bin/cargo build $CARGO_VERBOSE ${optionalString release "--release"} ${cargoArgs} --target ${rustHostTriple} ${buildMode} \
+        ${rustToolchain}/bin/cargo build $CARGO_VERBOSE ${optionalString release "--release"} ${lib.strings.concatStringsSep " " cargoBuildFlags} --target ${rustHostTriple} ${buildMode} \
           ${featuresArg} ${optionalString (!hasDefaultFeature) "--no-default-features"} \
           ${optionalString (builtins.length cargoUnstableFlags > 0) "-Z ${lib.strings.concatStringsSep "," cargoUnstableFlags}"} \
           --message-format json-diagnostic-rendered-ansi | tee .cargo-build-output \
